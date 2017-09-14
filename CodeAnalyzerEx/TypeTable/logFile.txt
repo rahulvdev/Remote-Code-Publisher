@@ -1,0 +1,44 @@
+
+                                      CodeAnalysis - Version 1.4
+    ==============================================================================================
+     Sun Apr  9 15:00:35 2017
+     Path: "F:\OOD projects\Project3\CodeAnalyzerEx\CodeAnalyzerEx\TypeTable"
+     Args: *.h, *.cpp, *.cs, /m, /f, /r
+                                                                               
+           Code Metrics - Start Line, Size (lines/code), and Complexity (number of scopes)
+    ==============================================================================================
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+                             namespace                   Global Namespace       1       1      41
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+               typetable.h       class                       TypeAnalysis      60      33      39
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+             typetable.cpp    function                       TypeAnalysis      18       2       1
+             typetable.cpp    function               returnDependentFiles      23      14       4
+             typetable.cpp    function                  startTypeAnalysis      40       8       1
+             typetable.cpp    function                          doDisplay      51      11       3
+             typetable.cpp    function                      showTypeTable      64      19       4
+             typetable.cpp    function              getGlobalFunctionInfo      85      10       3
+             typetable.cpp    function                storeGlobalFunction      99      34       3
+             typetable.cpp    function                     getGlobFuncMap     137       3       1
+             typetable.cpp    function                          searchAST     143      49      12
+             typetable.cpp    function               checkIfLineStEnEqual     195       9       1
+             typetable.cpp    function                  displayLineNoInfo     207      19       4
+             typetable.cpp    function                      getLineNumMap     228       3       1
+             typetable.cpp    function                               main     235       8       1
+
+                          Functions Exceeding Metric Limits and Public Data
+    ==============================================================================================
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+             typetable.cpp    function                          searchAST     143      49      12
+
+
+
+    searched     4 dirs
+   processed     2 files

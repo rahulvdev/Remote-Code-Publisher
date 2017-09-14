@@ -1,0 +1,36 @@
+
+                                      CodeAnalysis - Version 1.4
+    ==============================================================================================
+     Tue Apr  4 00:02:09 2017
+     Path: "F:\OOD projects\Project3\CodeAnalyzerEx\CodeAnalyzerEx\DependencyAnalyzer"
+     Args: *.h, *.cpp, *.cs, /m, /f, /r, -XMLPathSCC, ../../XMLFiles/scc.xml, -XMLPathDep, ../../XMLFiles/dep.xml
+                                                                               
+           Code Metrics - Start Line, Size (lines/code), and Complexity (number of scopes)
+    ==============================================================================================
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+                             namespace                   Global Namespace       1       1      15
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+      DependencyAnalysis.h       class                 DependancyAnalysis      47      13      12
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+    DependencyAnalysis.cpp    function                 DependancyAnalysis       8       4       1
+    DependencyAnalysis.cpp    function            startDependencyAnalysis      15      26       6
+    DependencyAnalysis.cpp    function              checkAgainstTypeTable      45       6       2
+    DependencyAnalysis.cpp    function                displayDependancies      53       7       1
+    DependencyAnalysis.cpp    function                      getDbInstance      62       3       1
+    DependencyAnalysis.cpp    function                               main      69       9       2
+
+                          Functions Exceeding Metric Limits and Public Data
+    ==============================================================================================
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+
+
+
+    searched     4 dirs
+   processed     2 files

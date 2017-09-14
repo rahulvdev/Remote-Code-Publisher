@@ -1,0 +1,271 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="..\CSSfiles\CSSstart.css">
+<script src="..\JavaScript\JSFile.js">
+</script>
+</head>
+<body>
+<pre>
+ !----------------------------------------------------------------------------
+DBAccess.cpp.htm - Help file for Project #3
+Published 19 Mar 2017
+Jim Fawcett, CSE687 - Object Oriented Design, Spring 2017
+
+
+Note:
+-Markup characters in the text part, enclosed in &lt;pre&gt;...&lt;/pre&gt; have to be
+replaced with escape sequences, e.g., < becomes &lt and > becomes &gt
+-Be careful that you don't replace genuine markup characters with escape
+sequences, e.g., everything outside of the &lt;pre&gt;...&lt;/pre&gt; section.
+----------------------------------------------------------------------------->
+ </pre>
+<h3>DBAccess.cpp</h3>
+<hr/>
+<div class = "indent">
+<h4>Dependencies:
+
+<ul style="list - style - type:disc">
+<li><a href="Cpp11-BlockingQueue.cpp.htm">Cpp11-BlockingQueue.cpp</a></li>
+<li><a href="DBAccess.cpp.htm">DBAccess.cpp</a></li>
+<li><a href="Utilities.cpp.htm">Utilities.cpp</a></li>
+<li><a href="XmlDocument.cpp.htm">XmlDocument.cpp</a></li>
+<li><a href="XmlElement.cpp.htm">XmlElement.cpp</a></li>
+<li><a href="DBAccess.h.htm">DBAccess.h</a></li>
+<li><a href="Cpp11-BlockingQueue.h.htm">Cpp11-BlockingQueue.h</a></li>
+</ul>
+</div>
+<hr/>
+<pre>
+/////////////////////////////////////////////////////////////////////
+// DBAccess.cpp - It is used to handle all the database operations //
+//                                                                 //
+// Rahul Vijaydev, CSE687 - Object Oriented Design, Spring 2017    //
+/////////////////////////////////////////////////////////////////////
+//
+//Description: This file demonstrates calls to the functions in the DBHandler class.
+//
+#include&lt;iostream&gt;
+#include"DBAccess.h"
+
+
+
+#ifdef DBACCESS
+
+int main() {
+<button id="but48" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but48_div">
+
+
+	std::cout &lt;&lt; "---------------------------------------------------------- \n";
+	std::cout &lt;&lt; "String Database \n";
+	std::cout &lt;&lt; "----------------------------------------------------------\n";
+
+	DBHandler&lt;StrData&gt; dbH("../XMLfiles/StringDB.xml", 10);
+	std::vector&lt;Key&gt; childVect1;
+	std::vector&lt;Key&gt; childVect2;
+	std::vector&lt;Key&gt; childVect3;
+	std::vector&lt;Key&gt; childVect4;
+	childVect1.push_back("Child1");
+	childVect1.push_back("Child2");
+	dbH.saveDBElement("elem1", "test", "elem1's StrData", "Hello World", childVect1);
+	dbH.saveDBElement("elem2", "Code", "elem2's StrData", "Bjarne Stroustrup", childVect2);
+	dbH.saveDBElement("elem3", "test", "elem3's StrData", "Big Data", childVect3);
+	dbH.saveDBElement("elem4", "test", "elem4's StrData", "Artificial Intelligence", childVect4);
+	dbH.toXMl("../XMLfiles/StringDB.xml");
+
+	std::cout &lt;&lt; "--------------------------------------------------------------------" &lt;&lt; "\n";
+	std::cout &lt;&lt; "\n";
+	std::vector&lt;Key&gt; keyVect = dbH.getKeys();
+	std::cout &lt;&lt; "-------------------------------------------------------------------------------------------------- \n";
+	std::cout &lt;&lt; "Demonstrating requirement 2 where each element consists of name,description,category and datetime";
+	std::cout &lt;&lt; " as metadata and corresponding string data \n";
+	std::cout &lt;&lt; "-------------------------------------------------------------------------------------------------- \n";
+	for (Key key : keyVect) {
+		dbH.showElement(key);
+	}
+
+
+	dbH.modifyMetaData("elem2", "name", "Albert Einstein", false);
+	dbH.showElement("elem2");
+	dbH.modifyMetaData("elem3", "category", "Execution", false);
+	dbH.showElement("elem3");
+	std::cout &lt;&lt; "Adding child to element with key elem1 :Requirement 4 \n";
+	dbH.modifyMetaData("elem1", "children", "Child3", false);
+	dbH.showElement("elem1");
+	std::cout &lt;&lt; "Deleting child to element with key elem1 :Requirement 4 \n";
+	dbH.modifyMetaData("elem1", "children", "Child1", true);
+	dbH.showElement("elem1");
+
+	std::cout &lt;&lt; "-----------------------------------------------------" &lt;&lt; "\n";
+
+
+	dbH.deleteElement("elem1");
+	std::vector&lt;Key&gt; updatedKeyVect = dbH.getKeys();
+	for (Key key : updatedKeyVect) {
+		dbH.showElement(key);
+	}
+
+	dbH.modifyData("elem2", "Elon Musk");
+	dbH.showElement("elem2");
+
+	std::vector&lt;Key&gt; childrenVect = dbH.retrieveChildrenList("elem2");
+	for (Key k : childrenVect) {
+		std::cout &lt;&lt; "Child " &lt;&lt; k &lt;&lt; "\n";
+		std::cout &lt;&lt; "\n";
+	}
+
+	dbH.addChild("elem2", "elem2Child1");
+	dbH.addChild("elem2", "elem2Child2");
+	dbH.addChild("elem2", "elem2Child3");
+	std::vector&lt;Key&gt; childrenVect1 = dbH.retrieveChildrenList("elem2");
+	for (Key k : childrenVect1) {
+		std::cout &lt;&lt; "Child " &lt;&lt; k &lt;&lt; "\n";
+	}
+
+	std::vector&lt;Key&gt; dateTimeVect = dbH.queryTime("2017-01-01.12:00:00", "2017-03-01.12:00:00");
+	if (dateTimeVect.size() != 0) {
+		std::cout &lt;&lt; "Displaying elements stored within specified time \n";
+		for (Key k : dateTimeVect) {
+			std::cout &lt;&lt; k &lt;&lt; "\n";
+		}
+	}
+	else
+	{
+		std::cout &lt;&lt; "None of the elements are within specified time interval \n";
+		std::cout &lt;&lt; "\n";
+	}
+
+	std::cout &lt;&lt; "----------------------------------------------------------- \n";
+	std::cout &lt;&lt; "Query Test \n";
+	std::cout &lt;&lt; "----------------------------------------------------------- \n";
+	std::vector&lt;Key&gt; strKeyList = dbH.getKeys();
+	std::vector&lt;Key&gt; resVect = dbH.queryElement(strKeyList, "ert", "Item name");
+	for (Key k : resVect) {
+		std::cout &lt;&lt; "Element with key " &lt;&lt; k &lt;&lt; " has the pattern -ert- in the item name \n";
+		std::cout &lt;&lt; "------------------------------------------------------ \n";
+	}
+
+	std::vector&lt;Key&gt; resVect1 = dbH.queryElement(strKeyList, "test", "Category");
+	for (Key k : resVect) {
+		std::cout &lt;&lt; "Element with key " &lt;&lt; k &lt;&lt; " has the pattern -test- in its category \n";
+		std::cout &lt;&lt; "------------------------------------------------------ \n";
+	}
+	std::vector&lt;Key&gt; strQueryProdVect = dbH.queryElement(resVect1, "ig", "Data");
+	std::cout &lt;&lt; "Requirement 8: Querying with keyset obtained from previous query \n";
+	std::cout &lt;&lt; "\n";
+	for (Key k : strQueryProdVect) {
+		std::cout &lt;&lt; "Key " &lt;&lt; k &lt;&lt; " contains the specified pattern \n";
+	}
+
+	std::vector&lt;Key&gt; resVect2 = dbH.queryElement(strKeyList, "ial", "Data");
+	for (Key k : resVect2) {
+		std::cout &lt;&lt; "Element with key " &lt;&lt; k &lt;&lt; " has the pattern -ial- in the item name \n";
+		std::cout &lt;&lt; "------------------------------------------------------ \n";
+	}
+
+	std::vector&lt;Key&gt; resVect3 = dbH.queryElemRegex(strKeyList, "(.*)(io)(.*)", "Category");
+	for (Key k : resVect3) {
+		std::cout &lt;&lt; "Element with key " &lt;&lt; k &lt;&lt; " has the pattern -(.*)(io)(.*)- in its category \n";
+		std::cout &lt;&lt; "------------------------------------------------------ \n";
+	}
+
+	std::string queryPattern = "arne";
+	std::vector&lt;Key&gt; strDataVect = dbH.queryElement(strKeyList, queryPattern, "Data");
+	for (Key ke : strDataVect) {
+		std::cout &lt;&lt; " Element with key " &lt;&lt; ke &lt;&lt; "contains pattern " &lt;&lt; queryPattern &lt;&lt; "in its Data \n";
+	}
+
+	std::cout &lt;&lt; "---------------------------------------------------------- \n";
+	std::cout &lt;&lt; "Integer Database \n";
+	std::cout &lt;&lt; "---------------------------------------------------------- \n";
+
+	DBHandler&lt;intData&gt; idbH(" ,", 10);
+	std::vector&lt;Key&gt; intChildVect1;
+	std::vector&lt;Key&gt; intChildVect2;
+	std::vector&lt;Key&gt; intChildVect3;
+	std::vector&lt;Key&gt; intChildVect4;
+	intChildVect1.push_back("Child1");
+	intChildVect1.push_back("Child2");
+	idbH.saveDBElement("ielem1", "test", "elem1's StrData", 10, childVect1);
+	idbH.saveDBElement("ielem2", "Code", "elem2's StrData", 32, childVect2);
+	idbH.saveDBElement("ielem3", "test", "elem3's StrData", 56, childVect3);
+	idbH.saveDBElement("ielem4", "test", "elem4's StrData", 49, childVect4);
+
+
+	std::cout &lt;&lt; "-------------------------------------------------------------------------------------------------- \n";
+	std::cout &lt;&lt; "Demonstrating requirement 2 where each element consists of name,description,category and datetime";
+	std::cout &lt;&lt; " as metadata and corresponding integer data \n";
+	std::cout &lt;&lt; "-------------------------------------------------------------------------------------------------- \n";
+	std::vector&lt;Key&gt; intVect = idbH.getKeys();
+	for (Key k : intVect) {
+		idbH.showElement(k);
+	}
+
+	idbH.deleteElement("ielem4");
+
+	idbH.modifyMetaData("ielem2", "name", "Galileo", false);
+	idbH.showElement("ielem2");
+	idbH.modifyMetaData("ielem3", "category", "Execution", false);
+	idbH.showElement("ielem3");
+	std::cout &lt;&lt; "Adding child to element with key elem1 :Requirement 4 \n";
+	idbH.modifyMetaData("ielem1", "children", "Child3", false);
+	idbH.showElement("ielem1");
+	std::cout &lt;&lt; "Deleting child to element with key elem1 :Requirement 4 \n";
+	idbH.modifyMetaData("ielem1", "children", "Child1", true);
+	idbH.showElement("ielem1");
+
+	std::cout &lt;&lt; "----------------------------------------------------------- \n";
+	std::cout &lt;&lt; "Query Test \n";
+	std::cout &lt;&lt; "----------------------------------------------------------- \n";
+	std::vector&lt;Key&gt; intKeyList = idbH.getKeys();
+	std::vector&lt;Key&gt; intResVect = idbH.queryElement(intKeyList, "lil", "Item name");
+	for (Key k : intResVect) {
+		std::cout &lt;&lt; "Element with key " &lt;&lt; k &lt;&lt; " has the pattern -lil- in the item name \n";
+		std::cout &lt;&lt; "------------------------------------------------------ \n";
+	}
+
+	std::vector&lt;Key&gt; intResVect1 = idbH.queryElement(intKeyList, "test", "Category");
+	for (Key k : intResVect1) {
+		std::cout &lt;&lt; "Element with key " &lt;&lt; k &lt;&lt; " has the pattern -test- in its category \n";
+		std::cout &lt;&lt; "------------------------------------------------------ \n";
+	}
+
+	std::vector&lt;Key&gt; queryProdVect = idbH.queryElement(intResVect1, "6", "Data");
+	std::cout &lt;&lt; "Requirement 8: Querying with keyset obtained from previous query \n";
+	std::cout &lt;&lt; "\n";
+	for (Key k : queryProdVect) {
+		std::cout &lt;&lt; "Key " &lt;&lt; k &lt;&lt; " contains the specified pattern \n";
+	}
+
+	std::string iqueryPattern = "2";
+	std::vector&lt;Key&gt; intDataVect = dbH.queryElement(strKeyList, iqueryPattern, "Data");
+	for (Key ke : intDataVect) {
+		std::cout &lt;&lt; " Element with key " &lt;&lt; ke &lt;&lt; "contains pattern " &lt;&lt; iqueryPattern &lt;&lt; "in its Data \n";
+	}
+
+	std::vector&lt;Key&gt; intResVect2 = idbH.queryElemRegex(intKeyList, "(.*)(io)(.*)", "Category");
+	for (Key k : intResVect2) {
+		std::cout &lt;&lt; "Element with key " &lt;&lt; k &lt;&lt; " has the pattern -(.*)(io)(.*)- in its category \n";
+		std::cout &lt;&lt; "------------------------------------------------------ \n";
+	}
+
+	std::vector&lt;Key&gt; idateTimeVect = idbH.queryTime("2017-01-01.12:00:00", "2017-03-01.12:00:00");
+	if (idateTimeVect.size() != 0) {
+		std::cout &lt;&lt; "Displaying elements stored within specified time \n";
+		for (Key k : idateTimeVect) {
+			std::cout &lt;&lt; k &lt;&lt; "\n";
+		}
+	}
+	else
+	{
+		std::cout &lt;&lt; "None of the elements are within specified time interval \n";
+		std::cout &lt;&lt; "\n";
+	}
+
+
+	std::getchar();
+}
+</div>#endif 
+</pre>
+</body>
+</html>

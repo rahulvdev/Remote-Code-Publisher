@@ -1,0 +1,57 @@
+
+                                      CodeAnalysis - Version 1.4
+    ==============================================================================================
+     Mon Apr  3 23:59:59 2017
+     Path: "F:\OOD projects\Project3\CodeAnalyzerEx\CodeAnalyzerEx\FilesForAnalysis"
+     Args: *.h, *.cpp, *.cs, /m, /f, /r, -XMLPathSCC, ../../XMLFiles/scc.xml, -XMLPathDep, ../../XMLFiles/dep.xml
+                                                                               
+           Code Metrics - Start Line, Size (lines/code), and Complexity (number of scopes)
+    ==============================================================================================
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+                             namespace                   Global Namespace       1       1      20
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+                       A.h    function                     globalFunction       1       2       1
+                       A.h   namespace                              first       3      30       9
+                       A.h       class                            MyClass       5       4       3
+                       A.h    function                              func1       8       2       1
+                       A.h   namespace                             second      10      21       4
+                       A.h       class                       secNameClass      12       7       1
+                       A.h      struct                            testStr      20       7       1
+              public data: int x ; 
+              public data: int y ; 
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+                     A.cpp    function                    insideClassFunc       9       7       2
+                     A.cpp    function                               main       2       5       1
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+                       B.h       class                           MyClass2      11       8       3
+                       B.h    function                           MyClass2      22       2       1
+                       B.h    function                          ~MyClass2      26       1       1
+
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+                     B.cpp       class                              Rahul       3       8       3
+                     B.cpp    function                              Rahul      13       2       1
+                     B.cpp    function                             ~Rahul      17       2       1
+                     B.cpp    function                               main      19       5       1
+
+                          Functions Exceeding Metric Limits and Public Data
+    ==============================================================================================
+                 file name        type                               name    line    size    cplx
+    -----------------------  ----------  ---------------------------------  ------  ------  ------
+
+              public data: A.h : 22 - struct testStr
+                int x ; 
+              public data: A.h : 23 - struct testStr
+                int y ; 
+
+
+    searched     1 dirs
+   processed     4 files

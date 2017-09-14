@@ -1,0 +1,438 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="..\CSSfiles\CSSstart.css">
+<script src="..\JavaScript\JSFile.js">
+</script>
+</head>
+<body>
+<pre>
+ !----------------------------------------------------------------------------
+DBAccess.h.htm - Help file for Project #3
+Published 19 Mar 2017
+Jim Fawcett, CSE687 - Object Oriented Design, Spring 2017
+
+
+Note:
+-Markup characters in the text part, enclosed in &lt;pre&gt;...&lt;/pre&gt; have to be
+replaced with escape sequences, e.g., < becomes &lt and > becomes &gt
+-Be careful that you don't replace genuine markup characters with escape
+sequences, e.g., everything outside of the &lt;pre&gt;...&lt;/pre&gt; section.
+----------------------------------------------------------------------------->
+ </pre>
+<h3>DBAccess.h</h3>
+<hr/>
+<div class = "indent">
+<h4>Dependencies:
+
+<ul style="list - style - type:disc">
+<li><a href="DBAccess.h.htm">DBAccess.h</a></li>
+<li><a href="DBAccess.h.htm">DBAccess.h</a></li>
+<li><a href="DBAccess.h.htm">DBAccess.h</a></li>
+<li><a href="Utilities.cpp.htm">Utilities.cpp</a></li>
+<li><a href="XmlElement.cpp.htm">XmlElement.cpp</a></li>
+<li><a href="XmlElement.h.htm">XmlElement.h</a></li>
+<li><a href="Cpp11-BlockingQueue.h.htm">Cpp11-BlockingQueue.h</a></li>
+<li><a href="XmlDocument.cpp.htm">XmlDocument.cpp</a></li>
+</ul>
+</div>
+<hr/>
+<pre>
+#pragma once
+//////////////////////////////////////////////////////////////////////
+// DBAccess.h - It provides member functions for database operations//
+//                                                                  //
+// Rahul Vijaydev, CSE687 - Object Oriented Design, Spring 2017     //
+/////////////////////////////////////////////////////////////////////
+//
+//Description: 
+//----------------
+//This file provides memeber functions used to access all database operations
+//like insertion of database elements,deletion of elements,updating metadata and data values
+//and querying the database content.
+//
+//
+//Public Interface:
+//-------------------
+//DBHandler()
+//DBHandler(std::string fname, int writeNum)
+//bool deleteElement(std::string key);
+//void showElement(Key key);
+//std::vector&lt;Key&gt; getKeys();
+//Element&lt;Data&gt; getValue(Key key);
+//void saveDBElement(std::string name, std::string category, std::string desc, Data data, std::vector&lt;Key&gt; childrenVect);
+//void saveFileDependancy(std::string name, std::vector&lt;std::string&gt; depFileVect);
+//bool modifyMetaData(Key key, std::string property, std::string newVal, bool typeOfOp);
+//bool modifyData(Key key, Data data);
+//void addChild(Key key, std::string child);
+//time_t DateTimeFromString(std::string Dt);
+//std::string DateTimeToString(time_t time);
+//void toXMl(std::string nameOfFile);
+//void fromXml(std::string nameOfFile);
+//void showDbContent();
+//std::vector&lt;std::string&gt; queryTime(std::string startTime, std::string endTime);
+//std::vector&lt;std::string&gt; retrieveChildrenList(Key key);
+//std::vector&lt;std::string&gt; queryElement(std::vector&lt;std::string&gt; keyList, std::string pattern, std::string property);
+//std::vector&lt;std::string&gt; formKeyUnion(std::vector&lt;std::string&gt; keySet1, std::vector&lt;std::string&gt; keySet2);
+//std::vector&lt;std::string&gt; queryElemRegex(std::vector&lt;std::string&gt; keyList, std::string regexPattern, std::string property);
+//
+//Required Files :
+//-------------- -
+//-NoSqlDb.h
+//
+// Build Process :
+//--------------
+//   devenv DBWrapper.sln / debug rebuild
+//
+//Maintenance History :
+//--------------------
+//ver 0.1 : 2nd Feb 2017
+/*
+* -
+*/
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;regex&gt;
+#include "../NoSqlDb/NoSqlDb.h"
+
+
+template&lt;typename Data&gt;
+class DBHandler {
+<button id="but8" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but8_div">
+
+private:
+	NoSqlDb&lt;Data&gt; dbObj;
+	int noOfWrites;
+	int currentWrites = 0;
+	std::string nameOffile;
+
+public:
+
+	using StrData = std::string;
+	using intData = int;
+	using Key = std::string;
+	using Keys = std::vector&lt;Key&gt;;
+
+	//Non-Parameterized DBHandler constructor
+	DBHandler() {
+<button id="but9" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but9_div">
+
+	}
+</div>
+	//DBHandler contructor
+	//initializes path for writing DB content to XML file
+	DBHandler(std::string fname, int writeNum)
+	{
+<button id="but10" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but10_div">
+		nameOffile = fname;
+		noOfWrites = writeNum;
+		dbObj.setxmlFilePath(fname);
+	}
+</div>
+
+	bool deleteElement(std::string key);
+	void showElement(Key key);
+	std::vector&lt;Key&gt; getKeys();
+	Element&lt;Data&gt; getValue(Key key);
+	void saveDBElement(std::string name, std::string category, std::string desc, Data data, std::vector&lt;Key&gt; childrenVect);
+	void saveFileDependancy(std::string name, std::vector&lt;std::string&gt; depFileVect);
+	bool modifyMetaData(Key key, std::string property, std::string newVal, bool typeOfOp);
+	bool modifyData(Key key, Data data);
+	void addChild(Key key, std::string child);
+	time_t DateTimeFromString(std::string Dt);
+	std::string DateTimeToString(time_t time);
+	void toXMl(std::string nameOfFile);
+	void fromXml(std::string nameOfFile);
+	void showDbContent();
+	std::vector&lt;std::string&gt; queryTime(std::string startTime, std::string endTime);
+	std::vector&lt;std::string&gt; retrieveChildrenList(Key key);
+	std::vector&lt;std::string&gt; formKeyUnion(std::vector&lt;std::string&gt; keySet1, std::vector&lt;std::string&gt; keySet2);
+};
+</div>
+
+
+//Delete Element from database
+template&lt;typename Data&gt;
+bool DBHandler&lt;Data&gt;::deleteElement(std::string key) {
+<button id="but11" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but11_div">
+	std::cout &lt;&lt; "Deleting element with key= " &lt;&lt; key &lt;&lt; "\n";
+	if (dbObj.deleteElement(key))
+		return true;
+	else
+		return false;
+}
+</div>
+
+//Returns the list of all keys from teh database
+template&lt;typename Data&gt;
+std::vector&lt;std::string&gt; DBHandler&lt;Data&gt;::getKeys() {
+<button id="but12" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but12_div">
+	return dbObj.keys();
+}
+</div>
+//Used to write DB content to XML file
+template&lt;typename Data&gt;
+void DBHandler&lt;Data&gt;::toXMl(std::string nameOfFile) {
+<button id="but13" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but13_div">
+	dbObj.toXml(nameOfFile);
+}
+</div>
+//Used to read XML file
+template&lt;typename Data&gt;
+void  DBHandler&lt;Data&gt;::fromXml(std::string nameOfFile) {
+<button id="but14" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but14_div">
+	dbObj.fromXml(nameOfFile);
+}
+</div>
+//Displays database content
+template&lt;typename Data&gt;
+inline void DBHandler&lt;Data&gt;::showDbContent()
+{
+<button id="but15" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but15_div">
+	std::cout &lt;&lt; "\n  size of db = " &lt;&lt; dbObj.count() &lt;&lt; "\n";
+	Keys keys = dbObj.keys();
+	for (Key key : keys)
+	{
+		//std::cout &lt;&lt; "\n  " &lt;&lt; key &lt;&lt; ":";
+		std::cout &lt;&lt; dbObj.value(key).show();
+	}
+}
+</div>
+//Dsiplays one record from the database
+template&lt;typename Data&gt;
+void DBHandler&lt;Data&gt;::showElement(Key key) {
+<button id="but16" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but16_div">
+	std::cout &lt;&lt; "\n";
+	std::cout &lt;&lt; "Displaying contents of element with key " &lt;&lt; key &lt;&lt; "\n";
+	std::cout &lt;&lt; dbObj.value(key).show();
+	std::cout &lt;&lt; "-----------------------------------------------------------------------" &lt;&lt; "\n";
+	std::cout &lt;&lt; "\n";
+}
+</div>
+//Returns the value associated with a particular key
+template&lt;typename Data&gt;
+Element&lt;Data&gt; DBHandler&lt;Data&gt;::getValue(Key key) {
+<button id="but17" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but17_div">
+	
+	return dbObj.value(key);
+}
+</div>
+//Used to save elements into the database
+template&lt;typename Data&gt;
+void DBHandler&lt;Data&gt;::saveDBElement(std::string name, std::string category, std::string desc, Data data, std::vector&lt;Key&gt; childrenVect) {
+<button id="but18" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but18_div">
+	Element&lt;Data&gt; elem;
+	elem.name = name;
+	elem.children = childrenVect;
+	dbObj.save(elem.name, elem);
+	currentWrites++;
+	if (currentWrites &gt; noOfWrites) {
+		toXMl(nameOffile);
+		currentWrites = 0;
+	}
+}
+</div>
+//Used to update or modify metadata informtation
+template&lt;typename Data&gt;
+bool DBHandler&lt;Data&gt;::modifyMetaData(Key key, std::string property, std::string newVal, bool typeOfOp) {
+<button id="but19" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but19_div">
+	std::cout &lt;&lt; " Property " &lt;&lt; property &lt;&lt; " is being updated to new value " &lt;&lt; newVal &lt;&lt; "\n";
+	std::cout &lt;&lt; "--------------------------------- \n";
+	if (dbObj.updateMetadata(key, property, newVal, typeOfOp))
+		return true;
+	else
+		return false;
+}
+</div>
+//Used to modify data 
+template&lt;typename Data&gt;
+bool DBHandler&lt;Data&gt;::modifyData(Key key, Data data) {
+<button id="but20" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but20_div">
+	if (dbObj.updateData(key, data))
+		return true;
+	else
+		return false;
+
+}
+</div>
+//Called when file dependancies need to be stored in the database
+template&lt;typename Data&gt;
+void DBHandler&lt;Data&gt;::saveFileDependancy(std::string fName, std::vector&lt;std::string&gt; depFileVect) {
+<button id="but21" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but21_div">
+	Element&lt;Data&gt; elem;
+	elem.name = fName;
+	elem.children = depFileVect;
+	bool flag=dbObj.save(fName, elem);
+	if (!flag) {
+		dbObj.updateChildVal(fName, depFileVect);
+	}
+}
+</div>
+//returns the list of children associated with a particular key
+template&lt;typename Data&gt;
+std::vector&lt;std::string&gt; DBHandler&lt;Data&gt;::retrieveChildrenList(Key key) {
+<button id="but22" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but22_div">
+	std::vector&lt;Key&gt; childrenVect = dbObj.getChildren(key);
+	if (childrenVect.size() != 0) {
+		return childrenVect;
+	}
+	else {
+		std::vector&lt;Key&gt; emptyVect;
+		std::cout &lt;&lt; "\n";
+		std::cout &lt;&lt; " Element does not contain any children" &lt;&lt; "\n";
+		std::cout &lt;&lt; "\n";
+		return emptyVect;
+	}
+}
+</div>
+//Used to add a child value to a database element
+template&lt;typename Data&gt;
+void DBHandler&lt;Data&gt;::addChild(Key key, std::string child) {
+<button id="but23" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but23_div">
+	Element&lt;Data&gt; elem = dbObj.value(key);
+	std::vector&lt;Key&gt; childrenVect = elem.children;
+	childrenVect.push_back(child);
+	elem.children = childrenVect;
+	dbObj.insertChild(key, elem);
+}
+</div>
+
+
+//Convert from string to DateTime format
+template&lt;typename Data&gt;
+time_t  DBHandler&lt;Data&gt;::DateTimeFromString(std::string Dt) {
+<button id="but24" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but24_div">
+	time_t tmDat;
+	try {
+		struct tm dtim = { 0 };
+		int year = 0;
+		int month = 0;
+		int day = 0;
+		int hour = 0;
+		int min = 0;
+		int sec = 0;
+		const char* DtStr = Dt.c_str();
+		sscanf_s(DtStr, "%d-%d-%d.%d:%d:%d", &year, &month, &day, &hour, &min, &sec);
+		dtim.tm_year = year - 1900;
+		dtim.tm_mon = month - 1;
+		dtim.tm_mday = day;
+		dtim.tm_hour = hour;
+		dtim.tm_min = min;
+		dtim.tm_sec = sec;
+		tmDat = mktime(&dtim);
+	}
+	catch (std::exception e) {
+		std::cout &lt;&lt; e.what();
+	}
+	return tmDat;
+}
+</div>
+
+//Convert DateTime Format to string
+template&lt;typename Data&gt;
+std::string DBHandler&lt;Data&gt;::DateTimeToString(time_t time) {
+<button id="but25" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but25_div">
+	try {
+		struct tm tstruct = {};
+		char charArr[80];
+		localtime_s(&tstruct, &t);
+		strftime(charArr, sizeof(charArr), "%Y-%m-%d.%X", &tstruct);
+		std::string dTim(charArr);
+	}
+	catch (std::exception e) {
+		std::cout &lt;&lt; e.what();
+	}
+	return dTim;
+}
+</div>
+
+//Querying for elements in the database
+//that were added with the specified time frame
+template&lt;typename Data&gt;
+std::vector&lt;std::string&gt; DBHandler&lt;Data&gt;::queryTime(std::string startTime, std::string endTime) {
+<button id="but26" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but26_div">
+	std::vector&lt;Key&gt; retVect;
+	try {
+		std::vector&lt;Key&gt; dtVect = dbObj.keys();
+		std::cout &lt;&lt; "Number of elements in the database are " &lt;&lt; dtVect.size() &lt;&lt; "\n";
+		std::cout &lt;&lt; "\n";
+		time_t stTime = DateTimeFromString(startTime);
+		for (Key k : dtVect) {
+			Element&lt;Data&gt; elem = dbObj.value(k);
+			time_t storeDt = elem.timeDate;
+			if (endTime == "DEFAULT") {
+				time_t eTime = time(0);
+				if (storeDt &gt; stTime && storeDt &lt; eTime) {
+					retVect.push_back(k);
+				}
+				else
+					std::cout &lt;&lt; "Element not stored within specified time" &lt;&lt; "\n";
+			}
+			else {
+				time_t enTime = DateTimeFromString(endTime);
+				if (storeDt &gt; stTime && storeDt &lt; enTime) {
+					retVect.push_back(k);
+				}
+				else
+					std::cout &lt;&lt; "Element not stored within specified time" &lt;&lt; "\n";
+			}
+		}
+	}
+	catch (std::exception e) {
+		std::cout &lt;&lt; e.what();
+	}
+	return retVect;
+}
+</div>
+
+//Used to form a union of keys
+//Separate keysets obtained from different querying results are merged 
+//and a new keyset is generated
+template&lt;typename Data&gt;
+std::vector&lt;std::string&gt; DBHandler&lt;Data&gt;::formKeyUnion(std::vector&lt;std::string&gt; keySet1, std::vector&lt;std::string&gt; keySet2) {
+<button id="but27" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but27_div">
+	bool keyPresent = false;
+	int outerLoop = 0;
+	int innerLoop = 0;
+	int keySet1_size = keySet1.size();
+	int keySet2_size = keySet2.size();
+	std::vector&lt;Key&gt; keyVect;
+	for (outerLoop = 0; outerLoop &lt; keySet1_size; outerLoop++) {
+		for (innerLoop = 0; innerLoop &lt; keySet2_size; innerLoop++) {
+			if (keySet1[outerLoop] == keySet2[innerLoop]) {
+				keyPresent = true;
+			}
+			else
+				keyPresent = false;
+		}
+		if (innerLoop == (keySet2_size - 1) && keyPresent == false) {
+			keySet2.push_back(keySet1[outerLoop]);
+		}
+	}
+	return keySet2;
+}
+</div>
+</pre>
+</body>
+</html>

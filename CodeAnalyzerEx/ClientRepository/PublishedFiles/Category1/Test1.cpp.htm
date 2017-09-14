@@ -1,0 +1,73 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="..\CSSfiles\CSSstart.css">
+<script src="..\JavaScript\JSFile.js">
+</script>
+</head>
+<body>
+<pre>
+ !----------------------------------------------------------------------------
+Test1.cpp.htm - Help file for Project #3
+Published 19 Mar 2017
+Jim Fawcett, CSE687 - Object Oriented Design, Spring 2017
+
+
+Note:
+-Markup characters in the text part, enclosed in &lt;pre&gt;...&lt;/pre&gt; have to be
+replaced with escape sequences, e.g., < becomes &lt and > becomes &gt
+-Be careful that you don't replace genuine markup characters with escape
+sequences, e.g., everything outside of the &lt;pre&gt;...&lt;/pre&gt; section.
+----------------------------------------------------------------------------->
+ </pre>
+<h3>Test1.cpp</h3>
+<hr/>
+<div class = "indent">
+<h4>Dependencies:
+
+<ul style="list - style - type:disc">
+<li><a href="Test1.h.htm">Test1.h</a></li>
+<li><a href="Test1.cpp.htm">Test1.cpp</a></li>
+<li><a href="Utilities.h.htm">Utilities.h</a></li>
+<li><a href="XmlDocument.cpp.htm">XmlDocument.cpp</a></li>
+<li><a href="XmlElement.cpp.htm">XmlElement.cpp</a></li>
+<li><a href="xmlElementParts.h.htm">xmlElementParts.h</a></li>
+</ul>
+</div>
+<hr/>
+<pre>
+// Test1.cpp
+
+#include "Test1.h"
+#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+
+Test::Test1::Test1() {}
+
+Test::Test1::~Test1() {}
+
+template&lt;typename T&gt;
+std::string toString(const T& t)
+{
+<button id="but26" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but26_div">
+  std::ostringstream out;
+  out &lt;&lt; t;
+  return out.str();
+}
+</div>
+using namespace Scanner;
+
+#ifdef TEST_TEST1
+
+int main()
+{
+<button id="but27" type="button" onclick="triggerMethod(this)">+</button>
+<div class="noShow" id="but27_div">
+  SemiExp se1;
+  std::cout &lt;&lt; "\n  " &lt;&lt; toString&lt;size_t&gt;(se1.length());
+  std::cout &lt;&lt; "\n\n";
+}
+</div>#endif
+</pre>
+</body>
+</html>
